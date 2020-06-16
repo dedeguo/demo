@@ -63,7 +63,7 @@ if __name__ == "__main__":
     file = open(file_path, encoding='utf-8')
     lines = file.read().splitlines()
 
-    ed, kess = load_entity_dict('./dict/test2.txt')
+    ed, kess = load_entity_dict('dict/cement_term_dictionary.txt')
     print(len(kess))
     print(kess)
 
@@ -73,16 +73,25 @@ if __name__ == "__main__":
     # tagg = label_sentence_with_entity_dict(test_sentence, ed)
     # print(test_sentence)
     # print(tagg)
+    chars = []
     tags = []
     for line in lines:
         sentences = cut_sent(line)
         for sentence in sentences:
             tag = label_sentence_with_entity_dict(sentence, ed, kess)
-            tags.append(tag)
+            chars.append(list(sentence))
             print(sentence)
             print(tag)
             tags.append(tag)
-#    print(tags)
+
+    print(len(chars))
+    print(len(tags))
+    print(chars[1])
+    print(tags[1])
+    print(len(chars[1]))
+    print(len(tags[1]))
+
+
 # print(ed)
 # keys = ed.keys()
 # print('keys', keys)

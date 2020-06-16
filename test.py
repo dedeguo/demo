@@ -7,16 +7,19 @@ import nltk
 from collections import Counter
 import codecs
 
-file_path = './cement.txt'
+# file_path = './data/dcement.txt'
+# file_path = './cement.txt'
+file_path = './data/ccement.txt'
 stop_word_path = 'stopwords.txt'
 
 jieba.load_userdict('cementdict.txt')
-#加载水泥词典 提高分词效果
+
+
+# 加载水泥词典 提高分词效果
 
 # def cut_sent2(paragraph): i
 #     sentences = re.split('(。|！|\!|\.|？|\?)', paragraph)  # 保留分割符
 #     return sentences
-
 
 
 def cut_sent(para):
@@ -30,7 +33,6 @@ def cut_sent(para):
     return para.split("\n")
 
 
-
 def seg_sentence2wordlist(file_path):
     inwards = []
     count = 0
@@ -41,7 +43,7 @@ def seg_sentence2wordlist(file_path):
         for sentence in cut_sent(line):
             if '水泥熟料' in sentence:
                 count = count + 1
-              #  print(sentence)
+            #  print(sentence)
             wds = jieba.lcut(sentence)
             for wd in wds:
                 if wd not in stop_words:  # 去停用词
@@ -80,7 +82,6 @@ def cal_word_freq(word_list):
 words = seg_sentence2wordlist(file_path)
 static = cal_word_freq(words)
 print(static)
-
 
 # file = open(file_path, encoding='utf-8')
 # lines = file.read().splitlines()
