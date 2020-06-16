@@ -15,7 +15,7 @@ def load_entity_dict(entity_dict_file_path):
     entity_lines = dict_file.read().splitlines()
     entity_dict = {}
     for entity_line in entity_lines:
-        words = entity_line.split(' ')
+        words = entity_line.split('\t')
         entity_dict[words[0]] = words[1]
     entity_dict_keys = sorted(entity_dict.keys(), reverse=True)
     return entity_dict, entity_dict_keys
@@ -63,7 +63,9 @@ if __name__ == "__main__":
     file = open(file_path, encoding='utf-8')
     lines = file.read().splitlines()
 
-    ed, kess = load_entity_dict('./dict/cement_dictionary.txt')
+    ed, kess = load_entity_dict('./dict/test2.txt')
+    print(len(kess))
+    print(kess)
 
     #test_sentence = '利用低场核磁共振的方法研究了不同水灰比的水泥浆体早期水化过程中可蒸发水量的变化。'
     # print(kess)
@@ -71,7 +73,6 @@ if __name__ == "__main__":
     # tagg = label_sentence_with_entity_dict(test_sentence, ed)
     # print(test_sentence)
     # print(tagg)
-    print(kess)
     tags = []
     for line in lines:
         sentences = cut_sent(line)

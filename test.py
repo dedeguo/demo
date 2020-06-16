@@ -7,11 +7,11 @@ import nltk
 from collections import Counter
 import codecs
 
-# file_path = './cement.txt'
-# stop_word_path = 'stopwords.txt'
-#
-# jieba.load_userdict('cementdict.txt')
-# 加载水泥词典 提高分词效果
+file_path = './cement.txt'
+stop_word_path = 'stopwords.txt'
+
+jieba.load_userdict('cementdict.txt')
+#加载水泥词典 提高分词效果
 
 # def cut_sent2(paragraph): i
 #     sentences = re.split('(。|！|\!|\.|？|\?)', paragraph)  # 保留分割符
@@ -76,10 +76,10 @@ def cal_word_freq(word_list):
     result = Counter(word_list)
     return result
 
-#
-# words = seg_sentence2wordlist(file_path)
-# static = cal_word_freq(words)
-# print(static)
+
+words = seg_sentence2wordlist(file_path)
+static = cal_word_freq(words)
+print(static)
 
 
 # file = open(file_path, encoding='utf-8')
