@@ -29,4 +29,4 @@ def build_lstm_crf_model(vocab, chunk_tags):
     return model
 
 
-model = build_lstm_crf_model('100', '10')
+# model = build_lstm_crf_model('100', '10')
