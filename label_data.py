@@ -3,6 +3,8 @@
 
 import numpy as np
 from test import cut_sent
+
+
 # from kashgari.tasks.labeling import BiLSTM_Model
 # import matplotlib.pyplot as plt
 
@@ -44,7 +46,7 @@ def label_sentence_with_entity_dict(sentence, entity_dict, entity_dict_sorted_en
     """
     tag_label = ['O'] * len(sentence)
     mark_lable = [0] * len(sentence)
-    #entities = entity_dict.keys()
+    # entities = entity_dict.keys()
     for entity in entity_dict_sorted_entity_name:
         entity_index = sentence.find(entity)
         if entity_index >= 0:
@@ -59,7 +61,6 @@ def label_sentence_with_entity_dict(sentence, entity_dict, entity_dict_sorted_en
     return tag_label
 
 
-
 # def plot_graphs(history, string):
 #   plt.plot(history.history[string])
 #   plt.plot(history.history['val_'+string])
@@ -68,9 +69,11 @@ def label_sentence_with_entity_dict(sentence, entity_dict, entity_dict_sorted_en
 #   plt.legend([string, 'val_'+string])
 #   plt.show()
 
-def get_train_data():
-    train_len = 7296
-    file_path = 'cement.txt'
+def get_train_data(file_path):
+    """
+    测试文档
+    """
+    # file_path = 'test.txt'
     file = open(file_path, encoding='utf-8')
     lines = file.read().splitlines()
 
@@ -92,19 +95,24 @@ def get_train_data():
     print(tags[1])
     print(len(chars[1]))
     print(len(tags[1]))
+    train_len = 4 * len(chars) // 5
 
     train_x = chars[:train_len]
     test_x = chars[train_len:]
     train_y = tags[:train_len]
-    test_y = chars[train_len:]
+    test_y = tags[train_len:]
     print("train_x le:n", len(train_x))
     print("test_x le:n", len(test_x))
     return train_x, train_y, test_x, test_y
 
 
+def parse_data():
+    return
 
 
 if __name__ == "__main__":
+    train_x, train_y, test_x, test_y = get_train_data()  # 测试
+
     """
     cement.txt 总共9120个句子.
     训练集和测试集合 4：1分割
@@ -155,9 +163,6 @@ if __name__ == "__main__":
     # plot_graphs(history, "loss")
     # print('validata model')
     # model.evaluate(test_x, test_y)
-
-
-
 
 # print(ed)
 # keys = ed.keys()
