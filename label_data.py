@@ -3,7 +3,8 @@
 
 import numpy as np
 from test import cut_sent
-
+# from kashgari.tasks.labeling import BiLSTM_Model
+# import matplotlib.pyplot as plt
 
 def load_entity_dict(entity_dict_file_path):
     """
@@ -58,21 +59,24 @@ def label_sentence_with_entity_dict(sentence, entity_dict, entity_dict_sorted_en
     return tag_label
 
 
-if __name__ == "__main__":
-    file_path = 'test.txt'
+
+# def plot_graphs(history, string):
+#   plt.plot(history.history[string])
+#   plt.plot(history.history['val_'+string])
+#   plt.xlabel("Epochs")
+#   plt.ylabel(string)
+#   plt.legend([string, 'val_'+string])
+#   plt.show()
+
+def get_train_data():
+    train_len = 7296
+    file_path = 'cement.txt'
     file = open(file_path, encoding='utf-8')
     lines = file.read().splitlines()
 
     ed, kess = load_entity_dict('dict/cement_term_dictionary.txt')
     print(len(kess))
     print(kess)
-
-    #test_sentence = '利用低场核磁共振的方法研究了不同水灰比的水泥浆体早期水化过程中可蒸发水量的变化。'
-    # print(kess)
-    # print(ed.keys())
-    # tagg = label_sentence_with_entity_dict(test_sentence, ed)
-    # print(test_sentence)
-    # print(tagg)
     chars = []
     tags = []
     for line in lines:
@@ -80,8 +84,6 @@ if __name__ == "__main__":
         for sentence in sentences:
             tag = label_sentence_with_entity_dict(sentence, ed, kess)
             chars.append(list(sentence))
-            print(sentence)
-            print(tag)
             tags.append(tag)
 
     print(len(chars))
@@ -90,6 +92,71 @@ if __name__ == "__main__":
     print(tags[1])
     print(len(chars[1]))
     print(len(tags[1]))
+
+    train_x = chars[:train_len]
+    test_x = chars[train_len:]
+    train_y = tags[:train_len]
+    test_y = chars[train_len:]
+    print("train_x le:n", len(train_x))
+    print("test_x le:n", len(test_x))
+    return train_x, train_y, test_x, test_y
+
+
+
+
+if __name__ == "__main__":
+    """
+    cement.txt 总共9120个句子.
+    训练集和测试集合 4：1分割
+    
+    训练集合7296,测试集1824
+    """
+    # train_len = 7296
+    # file_path = 'cement.txt'
+    # file = open(file_path, encoding='utf-8')
+    # lines = file.read().splitlines()
+    #
+    # ed, kess = load_entity_dict('dict/cement_term_dictionary.txt')
+    # print(len(kess))
+    # print(kess)
+    #
+    #
+    # #test_sentence = '利用低场核磁共振的方法研究了不同水灰比的水泥浆体早期水化过程中可蒸发水量的变化。'
+    # # print(kess)
+    # # print(ed.keys())
+    # # tagg = label_sentence_with_entity_dict(test_sentence, ed)
+    # # print(test_sentence)
+    # # print(tagg)
+    # chars = []
+    # tags = []
+    # for line in lines:
+    #     sentences = cut_sent(line)
+    #     for sentence in sentences:
+    #         tag = label_sentence_with_entity_dict(sentence, ed, kess)
+    #         chars.append(list(sentence))
+    #         tags.append(tag)
+    #
+    # print(len(chars))
+    # print(len(tags))
+    # print(chars[1])
+    # print(tags[1])
+    # print(len(chars[1]))
+    # print(len(tags[1]))
+    #
+    # train_x = chars[:train_len]
+    # test_x = chars[train_len:]
+    # train_y = tags[:train_len]
+    # test_y = chars[train_len:]
+    # print("train_x le:n", len(train_x))
+    # print("test_x le:n", len(test_x))
+    # model = BiLSTM_Model()
+    # history = model.fit(train_x, train_y, test_x, test_y, epochs=15)
+    # plot_graphs(history, "acc")
+    # plot_graphs(history, "loss")
+    # print('validata model')
+    # model.evaluate(test_x, test_y)
+
+
 
 
 # print(ed)
