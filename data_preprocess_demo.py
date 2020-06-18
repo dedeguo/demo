@@ -94,7 +94,7 @@ def plot_graphs(history_data, string):
     plt.show()
 
 
-# 'test.txt'
+
 if __name__ == "__main__":
     #file_to_pt = './data/ccement.txt'
     file_to_pt = './data/all_cement.txt'
@@ -129,14 +129,3 @@ if __name__ == "__main__":
     model.save('model/crf.h5')
     plot_graphs(history, 'crf_viterbi_accuracy')
     plot_graphs(history, 'loss')
-
-
-    # print(len(vocab1))
-    # print(len(char2idx1))
-    # print(type(processed_x))
-
-    #
-    # print(processed_y[333])
-    # # print(type(processed_y[2]))
-    #
-    # #print('processed_x :'+processed_x)

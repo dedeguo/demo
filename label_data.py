@@ -1,5 +1,6 @@
-# 标注数据
-#
+"""
+利用术语库信息，标注水泥数据
+"""
 
 import numpy as np
 from test import cut_sent
@@ -7,6 +8,7 @@ from test import cut_sent
 
 # from kashgari.tasks.labeling import BiLSTM_Model
 # import matplotlib.pyplot as plt
+total_count = 0
 
 def load_entity_dict(entity_dict_file_path):
     """
@@ -47,9 +49,11 @@ def label_sentence_with_entity_dict(sentence, entity_dict, entity_dict_sorted_en
     tag_label = ['O'] * len(sentence)
     mark_lable = [0] * len(sentence)
     # entities = entity_dict.keys()
+    global total_count
     for entity in entity_dict_sorted_entity_name:
         entity_index = sentence.find(entity)
         if entity_index >= 0:
+            total_count = total_count + 1
             entity_len = len(entity)
             if mark_lable[entity_index] == 0 and mark_lable[entity_index + entity_len - 1] == 0:
                 tag_label[entity_index] = 'B-' + entity_dict[entity]
@@ -88,13 +92,15 @@ def get_train_data(file_path):
             tag = label_sentence_with_entity_dict(sentence, ed, kess)
             chars.append(list(sentence))
             tags.append(tag)
+            print(sentence)
+            print(tag)
 
-    print(len(chars))
-    print(len(tags))
-    print(chars[1])
-    print(tags[1])
-    print(len(chars[1]))
-    print(len(tags[1]))
+    # print(len(chars))
+    # print(len(tags))
+    # print(chars[1])
+    # print(tags[1])
+    # print(len(chars[1]))
+    # print(len(tags[1]))
     train_len = 4 * len(chars) // 5
 
     train_x = chars[:train_len]
@@ -111,13 +117,23 @@ def parse_data():
 
 
 if __name__ == "__main__":
-    train_x, train_y, test_x, test_y = get_train_data()  # 测试
+    train_x, train_y, test_x, test_y = get_train_data('./data/dcement.txt')  # 测试
+    print('len(train_x)', len(train_x))
+    print('len(test_x)', len(test_x))
+    print('total_count', total_count)
 
     """
     cement.txt 总共9120个句子.
     训练集和测试集合 4：1分割
     
     训练集合7296,测试集1824
+    
+./data/ccement.txt    
+train_x le:n 12796
+test_x le:n 3199
+len(train_x) 12796
+len(test_x) 3199
+total_count 18959
     """
     # train_len = 7296
     # file_path = 'cement.txt'
